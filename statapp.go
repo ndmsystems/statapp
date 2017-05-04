@@ -81,5 +81,5 @@ func Set(param string, val uint64) {
 
 // Inc increments the value of the parameter
 func Inc(param string, inc int) {
-	params[param] = params[param] + uint64(inc)
+	params[param] +=  uint64(inc)
 }
