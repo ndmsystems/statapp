@@ -42,10 +42,11 @@ var (
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	var mem runtime.MemStats
 	runtime.ReadMemStats(&mem)
+	
 	params["mem"], params["goroute"] = mem.HeapSys, uint64(runtime.NumGoroutine())
-	json.NewEncoder(w).Encode(params)
-
+	
 	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(params)
 }
 
 // Start creates new implementation of a parameters storage
