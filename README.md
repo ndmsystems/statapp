@@ -3,7 +3,7 @@ StatApp
 **Monitoring application status using http**
 ---
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dzen-it/statapp/blob/master/LICENSE)
 [![GoDoc](https://godoc.org/github.com/dzen-it/statapp?status.svg)](https://godoc.org/github.com/dzen-it/statapp)
 
 Download and install it: `go get github.com/dzen-it/statapp` 
