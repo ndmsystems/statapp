@@ -1,48 +1,28 @@
 package statapp
 
-import (
-	"fmt"
-	"sync"
-)
-
-type paramsIface interface {
-	Set(string, interface{})
-	Get(string) (interface{}, error)
-	GetAll() map[string]interface{}
-	Delete(string)
-}
-
 // params implements a paramsIface
+
 type params struct {
-	sync.Mutex
-	storage map[string]interface{}
+	storage map[string]uint64
 }
 
 func newParams() (p *params) {
 	p = new(params)
-	p.storage = make(map[string]interface{})
+	p.storage = make(map[string]uint64)
 	return
 }
 
-func (p *params) Set(param string, val interface{}) {
-	p.Lock()
+func (p *params) Set(param string, val uint64) {
 	p.storage[param] = val
-	p.Unlock()
 }
 
-func (p *params) Get(param string) (val interface{}, err error) {
-	if val = p.storage[param]; val == nil {
-		err = fmt.Errorf("param is not exist")
-
-	}
-	return
+func (p *params) Get(param string) (val uint64) {
+	return p.storage[param]
 }
-func (p *params) GetAll() map[string]interface{} {
+func (p *params) GetAll() map[string]uint64 {
 	return p.storage
 }
 
 func (p *params) Delete(param string) {
-	p.Lock()
 	delete(p.storage, param)
-	p.Unlock()
 }

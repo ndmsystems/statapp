@@ -22,32 +22,25 @@ import (
 )
 
 func main() {
-	s := statapp.New()
 	// Runs a implementation of the server in background
-	s.Start(":9999")
+	statapp.Start(":9999")
 
 	// sets custom parameters
-	s.Set("param-1", 42)
-	s.Set("param-2", 1970)
-	s.Set("param-3", 2000)
+	statapp.Set("param-1", 42)
+	statapp.Set("param-2", 1970)
+	statapp.Set("param-3", 2000)
 
 	// Get the value of the parameter
-	val, err := s.Get("param-2")
-	if err != nil {
-		log.Fatalln(err)
-	}
+	val := statapp.Get("param-2")
 	fmt.Println(val)
 
 	// Deletes parameter #2
-	s.Delete("param-2")
+	statapp.Delete("param-2")
 
 	// Increment the value of the parameter
-	err = s.Inc("param-3", 33) // Now the value is 2033
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	sigCh := make(chan os.Signal, 1)
+	statapp.Inc("param-3", 33) // Now the value is 2033
+	
+	sigCh:=make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGTERM)
 	<-sigCh
 }
