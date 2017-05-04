@@ -13,12 +13,9 @@ Returning parameters to JSON is easy:
 package main
 
 import (
-	"fmt"
-	"log"
-	"os"
-	"os/signal"
-	"statapp"
-	"syscall"
+	"time"
+
+	"github.com/dzen-it/statapp"
 )
 
 func main() {
@@ -27,18 +24,10 @@ func main() {
 
 	// sets custom parameters
 	statapp.Set("param-1", 42)
-	statapp.Set("param-2", 1970)
-	statapp.Set("param-3", 2000)
-
-	// Get the value of the parameter
-	val := statapp.Get("param-2")
-	fmt.Println(val)
-
-	// Deletes parameter #2
-	statapp.Delete("param-2")
+	statapp.Set("param-2", 2030)
 
 	// Increment the value of the parameter
-	statapp.Inc("param-3", 33) // Now the value is 2033
+	statapp.Inc("param-2", 3) // Now the value is 2033
 	
 	sigCh:=make(chan os.Signal, 1)
 	signal.Notify(sigCh, syscall.SIGTERM)
@@ -48,6 +37,6 @@ func main() {
 Make a request:
 ``` bash
     $ curl localhost:9999
-    {"goroute":8,"mem":1703936,"param-1":42,,"param-3":2033}
+    {"goroute":8,"mem":1703936,"param-1":42,,"param-2":2033}
 ```
 You could notice `goroute` and `mem`. Yes, the parameters are present by default.
