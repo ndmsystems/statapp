@@ -69,6 +69,8 @@ func New() *Server {
 }
 
 func (s *Server) rootHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 
