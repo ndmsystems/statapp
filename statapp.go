@@ -27,7 +27,6 @@ func main() {
 package statapp
 
 import (
-	"context"
 	"encoding/json"
 	"net/http"
 	"runtime"
@@ -61,14 +60,6 @@ func Start(addr string) {
 
 func start() {
 	if err := server.ListenAndServe(); err != nil {
-		panic(err)
-	}
-}
-
-// Stop sends a stop signal to the server.
-// The parameters storage will also be cleaned.
-func Stop() {
-	if err := server.Shutdown(context.Background()); err != nil {
 		panic(err)
 	}
 }
