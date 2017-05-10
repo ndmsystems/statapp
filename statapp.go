@@ -29,7 +29,6 @@ package statapp
 import (
 	"context"
 	"encoding/json"
-	"log"
 	"net/http"
 	"runtime"
 )
@@ -42,9 +41,9 @@ var (
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	var mem runtime.MemStats
 	runtime.ReadMemStats(&mem)
-	
+
 	params["mem"], params["goroute"] = mem.HeapSys, uint64(runtime.NumGoroutine())
-	
+
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(params)
 }
@@ -62,7 +61,7 @@ func Start(addr string) {
 
 func start() {
 	if err := server.ListenAndServe(); err != nil {
-		log.Println(err)
+		panic(err)
 	}
 }
 
@@ -70,7 +69,7 @@ func start() {
 // The parameters storage will also be cleaned.
 func Stop() {
 	if err := server.Shutdown(context.Background()); err != nil {
-		log.Println(err)
+		panic(err)
 	}
 }
 
@@ -81,5 +80,5 @@ func Set(param string, val uint64) {
 
 // Inc increments the value of the parameter
 func Inc(param string, inc int) {
-	params[param] +=  uint64(inc)
+	params[param] += uint64(inc)
 }
